@@ -6,7 +6,7 @@ var src = path.join(rootPath,'src'); //开发源码目录
 
 module.exports = {
     entry: {
-        main: './src/main.js'
+        main: './src/main.js',
         //vendors: ['react','jquery']
     },
     output: {
