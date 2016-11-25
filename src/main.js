@@ -9,7 +9,7 @@ import React from 'react'
 import {render} from 'react-dom'
 
 // 引入React-Router模块
-import {Router, Route, Link, hashHistory, IndexRoute, Redirect, IndexLink} from 'react-router'
+import {Router, Route, Link, hashHistory,browserHistory, IndexRoute, Redirect, IndexLink} from 'react-router'
 
 // 引入Antd的导航组件
 import {Menu, Icon, Switch} from 'antd'
@@ -96,13 +96,13 @@ class Sider extends React.Component {
         )
     }
 }
-
+import Login from './components/login'
 
 // 配置路由
 render((
-    <Router history={hashHistory}>
+    <Router history={browserHistory}>
         <Route path="/" component={Sider}>
-            <IndexRoute path="myCard" component={myCard}/>
+            <IndexRoute path="myCard" component={myCard}/> /*IndexRoute 指定 /的默认加载*/
             <Route path="myTable" component={myTable}/>
             <Route path="myForm" component={myForm}/>
             <Route path="myChart" component={myChart}/>
@@ -110,7 +110,7 @@ render((
             <Route path="myAnimate" component={myAnimate}/>
             <Route path="myCard" component={myCard}/>
         </Route>
-        <Route path="/login" component={Sider}/>
+        <Route path="/login" component={Login}/>
     </Router>
 ), document.getElementById('app'));
 
