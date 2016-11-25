@@ -2,10 +2,10 @@
   "name": "React",
   "version": "0.0.1",
   "description": "react demo",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
     "dev": "webpack-dev-server --progress --profile --hot --colors --quiet --history-api-fallback",
-    "build": "webpack",
+    "build": "webpack --progress --profile --colors",
     "watch": "webpack -w"
   },
   "author": "luozh",
