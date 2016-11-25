@@ -1,14 +1,16 @@
 var webpack = require('webpack');
 var path = require('path');
-var rootPath = path.resolve(__dirname,'..');//项目根目录
+var rootPath = path.resolve(__dirname);//项目根目录
 var src = path.join(rootPath,'src'); //开发源码目录
+TEM_PATH = path.resolve(rootPath,'templates')
+var HtmlwebpackPlugin = require('html-webpack-plugin');
 process.env.NODE_ENV = 'production';
 env = process.env.NODE_ENV.trim();
 
 module.exports = {
     entry: {
         main: './src/main.js',
-        //vendors: ['react','jquery']
+        vendors: ['react','jquery']
     },
     output: {
         path: './dist',
@@ -83,7 +85,17 @@ module.exports = {
             "window.jQuery": "jquery",
             React: "react",
             ReactDom: "react-dom"
+        }),
+        new HtmlwebpackPlugin({
+            title: 'Hello World app',
+            template: path.resolve(TEM_PATH, 'index.html'),
+            filename: 'res_index.html',
+            //chunks这个参数告诉插件要引用entry里面的哪几个入口
+            chunks: ['main', 'vendors'],
+            //要把script插入到标签里
+            inject: 'body'
         })
+
         // new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js', Infinity) // 这是第三方库打包生成的文件
     ],
     //enable dev source map
