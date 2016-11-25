@@ -2,7 +2,8 @@ var webpack = require('webpack');
 var path = require('path');
 var rootPath = path.resolve(__dirname,'..');//项目根目录
 var src = path.join(rootPath,'src'); //开发源码目录
-// env = process.env.NODE_ENV.trim();
+process.env.NODE_ENV = 'production';
+env = process.env.NODE_ENV.trim();
 
 module.exports = {
     entry: {
@@ -71,10 +72,10 @@ module.exports = {
     },
     // example: if you wish to apply custom babel options
     // instead of using vue-loader's default:
-    babel: {
-        presets: ['es2015', 'stage-0', 'react'],
-        plugins: ['transform-runtime', ["antd", {"style": "css"}]]
-    },
+    // babel: {
+    //     presets: ['es2015', 'stage-0', 'react'],
+    //     plugins: ['transform-runtime', ["antd", {"style": "css"}]]
+    // },
     plugins: [
         new webpack.ProvidePlugin({
             $: "jquery",
