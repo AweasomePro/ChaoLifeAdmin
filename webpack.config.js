@@ -1,29 +1,39 @@
 var webpack = require('webpack');
 var path = require('path');
 var rootPath = path.resolve(__dirname);//项目根目录
-var SRC = path.join(rootPath,'app'); //开发源码目录
-TEM_PATH = path.resolve(SRC,'templates')
+var SRC = path.join(rootPath, 'app'); //开发源码目录
+TEM_PATH = path.resolve(SRC, 'templates');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 process.env.NODE_ENV = 'production';
 env = process.env.NODE_ENV.trim();
-
+var isProduction = process.env.NODE_ENV === 'production';
 module.exports = {
     //enable dev source map
     devtool: 'eval-source-map',
-    // entry: {
-    //     main: './SRC/index.js',
-    //     vendors: ['react','jquery']
-    // },
     entry: [
         'webpack-dev-server/client?http://localhost:3000',
         'webpack/hot/only-dev-server',
         'react-hot-loader/patch',
-        path.join(__dirname, 'app/index.js')
+        path.join(SRC, 'views/index.js')
     ],
+    // entry: {
+    //     index: [
+    //         'webpack-dev-server/client?http://localhost:3000',
+    //         'webpack/hot/only-dev-server',
+    //         'react-hot-loader/patch',
+    //         path.join(SRC, 'views/index.js')
+    //     ],
+    //     login:[
+    //         'webpack-dev-server/client?http://localhost:3000',
+    //         'webpack/hot/only-dev-server',
+    //         'react-hot-loader/patch',
+    //         path.join(SRC, 'views/login.js')
+    //     ]
+    // },
     output: {
-        path: path.join(__dirname, '/dist/'),
+        path: path.join(__dirname, './dist/'), //图片和js会放在这里
         filename: '[name].js',
-        publicPath: '/' //访问内存中的路径 实现热更新的必要
+        publicPath: '/', //访问内存中的路径 实现热更新的必要(包括生成图片的地址)
     },
     resolve: {
         extensions: ['', '.js', '.jsx'],
@@ -74,10 +84,13 @@ module.exports = {
                 test: /\.scss$/,
                 loader: "style!css!sass?sourceMap"
             },
-            {
-                test: /\.(woff|svg|eot|ttf)\??.*$/,
-                loader: 'url-loader?limit=50000&name=[path][name].[ext]'
-            }
+            // {
+            //     test: /\.(woff|svg|eot|ttf)\??.*$/,
+            //     loader: 'url-loader?limit=50000&name=[path][name].[ext]',
+            //     exclude: /node_modules|vue\/dist|vue-router\/|vue-loader\/|vue-hot-reload-api\//
+            // }
+            { test: /\.woff(2)?(\?[a-z0-9#=&.]+)?$/, loader: 'url?limit=10000&mimetype=application/font-woff' },
+            { test: /\.(ttf|eot|svg)(\?[a-z0-9#=&.]+)?$/, loader: 'file' }
         ]
     },
     // example: if you wish to apply custom babel options
@@ -91,9 +104,9 @@ module.exports = {
         // distribution of the ids to get the smallest id length for often used ids with
         // this plugin
         new HtmlWebpackPlugin({
-            template: path.join(TEM_PATH,'index.tpl.html') ,
+            template: path.join(TEM_PATH, 'index.tpl.html'),
             inject: 'body',
-            filename: 'index.html'
+            filename: 'index.html',
         }),
         new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.HotModuleReplacementPlugin(),
@@ -108,16 +121,6 @@ module.exports = {
             React: "react",
             ReactDom: "react-dom"
         }),
-        // new HtmlwebpackPlugin({
-        //     title: 'Hello World app',
-        //     template: path.resolve(TEM_PATH, 'index.html'),
-        //     filename: 'index.html',
-        //     //chunks这个参数告诉插件要引用entry里面的哪几个入口
-        //     chunks: ['main', 'vendors'],
-        //     //要把script插入到标签里
-        //     inject: 'body'
-        // })
-
         // new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js', Infinity) // 这是第三方库打包生成的文件
     ],
     //配置eslint
@@ -127,19 +130,6 @@ module.exports = {
     //     failOnError: false
     // },
 
-    //enable dev server
-    // devServer: {
-    //     historyApiFallback: true,
-    //     hot: true,
-    //     inline: true,
-    //     progress: true,
-    //     proxy: {
-    //         '/api/*': {
-    //             target: 'http://114.55.144.169/',
-    //             secure: false
-    //         }
-    //     }
-    // },
 };
 // if (process.env.NODE_ENV !== 'production') {
 //     module.exports.plugins = [

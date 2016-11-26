@@ -4,9 +4,9 @@ import { render } from 'react-dom';
 import { browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { AppContainer } from 'react-hot-loader';
-import configureStore from './store/configureStore';
-import Root from './containers/Root';
-import './styles/main.scss';
+import configureStore from '../store/configureStore';
+import Root from '../containers/Root';
+import '../styles/main.scss';
 
 const store = configureStore();
 const history = syncHistoryWithStore(browserHistory, store);
@@ -18,9 +18,10 @@ render(
     document.getElementById('root')
 );
 
+//warn 注意路径不要写错
 if (module.hot) {
-    module.hot.accept('./containers/Root', function () {
-        const NewRoot = require('./containers/Root').default;
+    module.hot.accept('../containers/Root', function () {
+        const NewRoot = require('../containers/Root').default;
         render(
             <AppContainer>
                 <NewRoot store={store} history={history}/>
