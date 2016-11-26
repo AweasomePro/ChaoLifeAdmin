@@ -6,7 +6,7 @@ const App = ({ children }) =>
         <h1>Filter table</h1>
         { children }
         <footer>
-            <Link to="/">Filterable Table</Link>
+            <Link to="/">Filterable Table2</Link>
             <Link to="/about">About</Link>
         </footer>
     </div>;
