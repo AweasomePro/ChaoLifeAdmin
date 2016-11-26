@@ -10,26 +10,26 @@ var isProduction = process.env.NODE_ENV === 'production';
 module.exports = {
     //enable dev source map
     devtool: 'eval-source-map',
-    entry: [
-        'webpack-dev-server/client?http://localhost:3000',
-        'webpack/hot/only-dev-server',
-        'react-hot-loader/patch',
-        path.join(SRC, 'views/index.js')
-    ],
-    // entry: {
-    //     index: [
-    //         'webpack-dev-server/client?http://localhost:3000',
-    //         'webpack/hot/only-dev-server',
-    //         'react-hot-loader/patch',
-    //         path.join(SRC, 'views/index.js')
-    //     ],
-    //     login:[
-    //         'webpack-dev-server/client?http://localhost:3000',
-    //         'webpack/hot/only-dev-server',
-    //         'react-hot-loader/patch',
-    //         path.join(SRC, 'views/login.js')
-    //     ]
-    // },
+    // entry: [
+    //     'webpack-dev-server/client?http://localhost:3000',
+    //     'webpack/hot/only-dev-server',
+    //     'react-hot-loader/patch',
+    //     path.join(SRC, 'views/index.js')
+    // ],
+    entry: {
+        index: [
+            'webpack-dev-server/client?http://localhost:3000',
+            'webpack/hot/only-dev-server',
+            'react-hot-loader/patch',
+            path.join(SRC, 'views/index.js')
+        ],
+        login:[
+            'webpack-dev-server/client?http://localhost:3000',
+            'webpack/hot/only-dev-server',
+            'react-hot-loader/patch',
+            path.join(SRC, 'views/login.js')
+        ]
+    },
     output: {
         path: path.join(__dirname, './dist/'), //图片和js会放在这里
         filename: '[name].js',
