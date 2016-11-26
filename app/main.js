@@ -228,18 +228,18 @@ class Sider extends React.Component {
     }
 }
 
-{/*<Router history={hashHistory}>*/}
-    {/*<Route path="/" component={Sider}>*/}
-        {/*<IndexRoute path="myCard" component={myCard}/>*/}
-        {/*<Route path="myTable" component={myTable}/>*/}
-        {/*<Route path="myForm" component={myForm}/>*/}
-        {/*<Route path="myChart" component={myChart}/>*/}
-        {/*<Route path="myCalendar" component={myCalendar}/>*/}
-        {/*<Route path="myAnimate" component={myAnimate}/>*/}
-        {/*<Route path="myCard" component={myCard}/>*/}
-    {/*</Route>*/}
-    {/*<Route path="/login" component={Sider}/>*/}
-{/*</Router>*/}
+// {/*<Router history={hashHistory}>*/}
+//     {/*<Route path="/" component={Sider}>*/}
+//         {/*<IndexRoute path="myCard" component={myCard}/>*/}
+//         {/*<Route path="myTable" component={myTable}/>*/}
+//         {/*<Route path="myForm" component={myForm}/>*/}
+//         {/*<Route path="myChart" component={myChart}/>*/}
+//         {/*<Route path="myCalendar" component={myCalendar}/>*/}
+//         {/*<Route path="myAnimate" component={myAnimate}/>*/}
+//         {/*<Route path="myCard" component={myCard}/>*/}
+//     {/*</Route>*/}
+//     {/*<Route path="/login" component={Sider}/>*/}
+// {/*</Router>*/}
 // 配置路由
 render((
     <div>

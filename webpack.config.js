@@ -1,21 +1,29 @@
 var webpack = require('webpack');
 var path = require('path');
 var rootPath = path.resolve(__dirname);//项目根目录
-var src = path.join(rootPath,'src'); //开发源码目录
+var src = path.join(rootPath,'app'); //开发源码目录
 TEM_PATH = path.resolve(rootPath,'templates')
-var HtmlwebpackPlugin = require('html-webpack-plugin');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 process.env.NODE_ENV = 'production';
 env = process.env.NODE_ENV.trim();
 
 module.exports = {
-    entry: {
-        main: './src/main.js',
-        vendors: ['react','jquery']
-    },
+    //enable dev source map
+    devtool: 'eval-source-map',
+    // entry: {
+    //     main: './src/main.js',
+    //     vendors: ['react','jquery']
+    // },
+    entry: [
+        'webpack-dev-server/client?http://localhost:3000',
+        'webpack/hot/only-dev-server',
+        'react-hot-loader/patch',
+        path.join(__dirname, 'app/index.js')
+    ],
     output: {
-        path: './dist',
-        publicPath: '/static/',
-        filename: '[name].js'
+        path: path.join(__dirname, '/dist/'),
+        filename: '[name].js',
+        publicPath: '/'
     },
     resolve: {
         extensions: ['', '.js', '.jsx'],
@@ -79,11 +87,21 @@ module.exports = {
     //     plugins: ['transform-runtime', ["antd", {"style": "css"}]]
     // },
     plugins: [
-        //热更新
-        new webpack.HotModuleReplacementPlugin(),
-        //允许错误不打断程序
+        // webpack gives your modules and chunks ids to identify them. Webpack can vary the
+        // distribution of the ids to get the smallest id length for often used ids with
+        // this plugin
         new webpack.optimize.OccurenceOrderPlugin(),
+        new HtmlWebpackPlugin({
+            template: 'app/index.tpl.html',
+            inject: 'body',
+            filename: 'index.html'
+        }),
+        new webpack.optimize.OccurenceOrderPlugin(),
+        new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin(),
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': JSON.stringify('development')
+        }),
         new webpack.ProvidePlugin({
             $: "jquery",
             jQuery: "jquery",
@@ -91,48 +109,53 @@ module.exports = {
             React: "react",
             ReactDom: "react-dom"
         }),
-        new HtmlwebpackPlugin({
-            title: 'Hello World app',
-            template: path.resolve(TEM_PATH, 'index.html'),
-            filename: 'index.html',
-            //chunks这个参数告诉插件要引用entry里面的哪几个入口
-            chunks: ['main', 'vendors'],
-            //要把script插入到标签里
-            inject: 'body'
-        })
+        // new HtmlwebpackPlugin({
+        //     title: 'Hello World app',
+        //     template: path.resolve(TEM_PATH, 'index.html'),
+        //     filename: 'index.html',
+        //     //chunks这个参数告诉插件要引用entry里面的哪几个入口
+        //     chunks: ['main', 'vendors'],
+        //     //要把script插入到标签里
+        //     inject: 'body'
+        // })
 
         // new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js', Infinity) // 这是第三方库打包生成的文件
     ],
-    //enable dev source map
-    devtool: 'eval-source-map',
+    //配置eslint
+    // eslint: {
+    //     configFile: '.eslintrc',
+    //     failOnWarning: false,
+    //     failOnError: false
+    // },
+
     //enable dev server
-    devServer: {
-        historyApiFallback: true,
-        hot: true,
-        inline: true,
-        progress: true,
-        proxy: {
-            '/api/*': {
-                target: 'http://114.55.144.169/',
-                secure: false
-            }
-        }
-    },
+    // devServer: {
+    //     historyApiFallback: true,
+    //     hot: true,
+    //     inline: true,
+    //     progress: true,
+    //     proxy: {
+    //         '/api/*': {
+    //             target: 'http://114.55.144.169/',
+    //             secure: false
+    //         }
+    //     }
+    // },
 };
-if (process.env.NODE_ENV !== 'production') {
-    module.exports.plugins = [
-        new webpack.DefinePlugin({
-            'process.env': {
-                NODE_ENV: JSON.stringify('production')
-            }
-        }),
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false
-            }
-        }),
-        new webpack.optimize.OccurenceOrderPlugin()
-    ]
-} else {
-    module.exports.devtool = '#source-map'
-}
+// if (process.env.NODE_ENV !== 'production') {
+//     module.exports.plugins = [
+//         new webpack.DefinePlugin({
+//             'process.env': {
+//                 NODE_ENV: JSON.stringify('production')
+//             }
+//         }),
+//         new webpack.optimize.UglifyJsPlugin({
+//             compress: {
+//                 warnings: false
+//             }
+//         }),
+//         new webpack.optimize.OccurenceOrderPlugin()
+//     ]
+// } else {
+//     module.exports.devtool = '#source-map'
+// }
