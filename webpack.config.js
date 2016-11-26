@@ -10,12 +10,12 @@ env = process.env.NODE_ENV.trim();
 module.exports = {
     entry: {
         main: './src/main.js',
-        // vendors: ['react','jquery']
+        vendors: ['react','jquery']
     },
     output: {
         path: './dist',
         publicPath: '/static/',
-        filename: 'build.js'
+        filename: '[name].js'
     },
     resolve: {
         extensions: ['', '.js', '.jsx'],
@@ -79,6 +79,11 @@ module.exports = {
     //     plugins: ['transform-runtime', ["antd", {"style": "css"}]]
     // },
     plugins: [
+        //热更新
+        new webpack.HotModuleReplacementPlugin(),
+        //允许错误不打断程序
+        new webpack.optimize.OccurenceOrderPlugin(),
+        new webpack.NoErrorsPlugin(),
         new webpack.ProvidePlugin({
             $: "jquery",
             jQuery: "jquery",
@@ -86,16 +91,15 @@ module.exports = {
             React: "react",
             ReactDom: "react-dom"
         }),
-        // new HtmlwebpackPlugin({
-        //     title: 'Hello World app',
-        //     template: path.resolve(TEM_PATH, 'index.html'),
-        //     filename: 'res_index.html',
-        //     //chunks这个参数告诉插件要引用entry里面的哪几个入口
-        //     // chunks: ['main', 'vendors'],
-        //     chunks: ['main', 'vendors'],
-        //     //要把script插入到标签里
-        //     inject: 'body'
-        // })
+        new HtmlwebpackPlugin({
+            title: 'Hello World app',
+            template: path.resolve(TEM_PATH, 'index.html'),
+            filename: 'index.html',
+            //chunks这个参数告诉插件要引用entry里面的哪几个入口
+            chunks: ['main', 'vendors'],
+            //要把script插入到标签里
+            inject: 'body'
+        })
 
         // new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js', Infinity) // 这是第三方库打包生成的文件
     ],
