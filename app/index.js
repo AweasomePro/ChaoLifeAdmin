@@ -19,11 +19,11 @@ render(
 );
 
 if (module.hot) {
-    module.hot.accept('./containers/Root', () => {
+    module.hot.accept('./containers/Root', function () {
         const NewRoot = require('./containers/Root').default;
         render(
             <AppContainer>
-                <NewRoot store={store} history={history} />
+                <NewRoot store={store} history={history}/>
             </AppContainer>,
             document.getElementById('root')
         );

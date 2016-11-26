@@ -1,8 +1,8 @@
 var webpack = require('webpack');
 var path = require('path');
 var rootPath = path.resolve(__dirname);//项目根目录
-var src = path.join(rootPath,'app'); //开发源码目录
-TEM_PATH = path.resolve(rootPath,'templates')
+var SRC = path.join(rootPath,'app'); //开发源码目录
+TEM_PATH = path.resolve(SRC,'templates')
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 process.env.NODE_ENV = 'production';
 env = process.env.NODE_ENV.trim();
@@ -11,7 +11,7 @@ module.exports = {
     //enable dev source map
     devtool: 'eval-source-map',
     // entry: {
-    //     main: './src/main.js',
+    //     main: './SRC/index.js',
     //     vendors: ['react','jquery']
     // },
     entry: [
@@ -23,7 +23,7 @@ module.exports = {
     output: {
         path: path.join(__dirname, '/dist/'),
         filename: '[name].js',
-        publicPath: '/'
+        publicPath: '/' //访问内存中的路径 实现热更新的必要
     },
     resolve: {
         extensions: ['', '.js', '.jsx'],
@@ -31,18 +31,18 @@ module.exports = {
             // ================================
             // 自定义路径别名
             // ================================
-            ASSET: path.join(src, 'assets'),
-            COMPONENT: path.join(src, 'components'),
-            ACTION: path.join(src, 'redux/actions'),
-            REDUCER: path.join(src, 'redux/reducers'),
-            STORE: path.join(src, 'redux/store'),
-            ROUTE: path.join(src, 'routes'),
-            // SERVICE: path.join(src, 'services'),
-            UTIL: path.join(src, 'utils'),
-            // LOGIN: path.join(src,'components/login')
-            // HOC: path.join(src, 'utils/HoC'),
-            // MIXIN: path.join(src, 'utils/mixins'),
-            // VIEW: path.join(src, 'views')
+            ASSET: path.join(SRC, 'assets'),
+            COMPONENT: path.join(SRC, 'components'),
+            ACTION: path.join(SRC, 'redux/actions'),
+            REDUCER: path.join(SRC, 'redux/reducers'),
+            STORE: path.join(SRC, 'redux/store'),
+            ROUTE: path.join(SRC, 'routes'),
+            // SERVICE: path.join(SRC, 'services'),
+            UTIL: path.join(SRC, 'utils'),
+            // LOGIN: path.join(SRC,'components/login')
+            // HOC: path.join(SRC, 'utils/HoC'),
+            // MIXIN: path.join(SRC, 'utils/mixins'),
+            // VIEW: path.join(SRC, 'views')
         }
     },
     resolveLoader: {
@@ -90,9 +90,8 @@ module.exports = {
         // webpack gives your modules and chunks ids to identify them. Webpack can vary the
         // distribution of the ids to get the smallest id length for often used ids with
         // this plugin
-        new webpack.optimize.OccurenceOrderPlugin(),
         new HtmlWebpackPlugin({
-            template: 'app/index.tpl.html',
+            template: path.join(TEM_PATH,'index.tpl.html') ,
             inject: 'body',
             filename: 'index.html'
         }),

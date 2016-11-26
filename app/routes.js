@@ -25,7 +25,7 @@ import myChart from './components/chart.js'
 import myAnimate from './components/animate.js'
 import myCalendar from './components/calendar.js'
 import myCard from './components/fetch.js'
-
+import logo from './assets/images/logo.png'
 const ACTIVE = {color: 'red'}
 
 // 配置导航
@@ -58,7 +58,7 @@ class Sider extends React.Component {
         return (
             <div>
                 <div id="leftMenu">
-                    <img src='./assets/images/logo.png' width="50" id="logo"/>
+                    <img src={logo} width="50" id="logo"/>
                     <Menu theme="dark"
                           onClick={this.handleClick}
                           style={{width: 185}}
