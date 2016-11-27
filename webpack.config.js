@@ -10,12 +10,6 @@ var isProduction = process.env.NODE_ENV === 'production';
 module.exports = {
     //enable dev source map
     devtool: 'eval-source-map',
-    // entry: [
-    //     'webpack-dev-server/client?http://localhost:3000',
-    //     'webpack/hot/only-dev-server',
-    //     'react-hot-loader/patch',
-    //     path.join(SRC, 'views/index.js')
-    // ],
     entry: {
         index: [
             'webpack-dev-server/client?http://localhost:3000',
@@ -107,6 +101,13 @@ module.exports = {
             template: path.join(TEM_PATH, 'index.tpl.html'),
             inject: 'body',
             filename: 'index.html',
+            chunks:['index',]
+        }),
+        new HtmlWebpackPlugin({
+            template: path.join(TEM_PATH, 'login.tpl.html'),
+            inject: 'body',
+            filename: 'login.html',
+            chunks: ['login',]
         }),
         new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.HotModuleReplacementPlugin(),

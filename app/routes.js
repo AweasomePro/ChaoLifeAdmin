@@ -25,7 +25,9 @@ import myChart from './components/chart.js'
 import myAnimate from './components/animate.js'
 import myCalendar from './components/calendar.js'
 import myCard from './components/fetch.js'
+import Login from './components/login/login.js'
 import logo from './assets/images/logo.png'
+
 const ACTIVE = {color: 'red'}
 
 // 配置导航
@@ -110,13 +112,17 @@ export default (
     // 		<Route path="myCard" component={myCard}/>
     // 	</Route>
     // </Router>
-    <Route path="/" component={Sider}>
-        <IndexRoute component={myCard}/>
-        <Route path="myTable" component={myTable}/>
-        <Route path="myForm" component={myForm}/>
-        <Route path="myChart" component={myChart}/>
-        <Route path="myCalendar" component={myCalendar}/>
-        <Route path="myAnimate" component={myAnimate}/>
-        <Route path="myCard" component={myCard}/>
+    <Route path="/">
+        <Route path="admin" component={Sider}>
+            <IndexRoute component={myCard}/>
+            <Route path="myTable" component={myTable}/>
+            <Route path="myForm" component={myForm}/>
+            <Route path="myChart" component={myChart}/>
+            <Route path="myCalendar" component={myCalendar}/>
+            <Route path="myAnimate" component={myAnimate}/>
+            <Route path="myCard" component={myCard}/>
+        </Route>
+        <Route path="login" component={Login}/>
     </Route>
+
 );
