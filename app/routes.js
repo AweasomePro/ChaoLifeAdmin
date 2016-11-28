@@ -69,21 +69,21 @@ class Sider extends React.Component {
                           mode="inline"
                     >
                         <SubMenu key="sub1" title={<span><Icon type="mail"/><span>导航一</span></span>}>
-                            <Menu.Item key="1"><Link to="/myTable">表格</Link></Menu.Item>
-                            <Menu.Item key="2"><Link to="/myForm">表单</Link></Menu.Item>
-                            <Menu.Item key="3"><Link to="/myChart">图表</Link></Menu.Item>
-                            <Menu.Item key="4"><Link to="/myCalendar">日历</Link></Menu.Item>
+                            <Menu.Item key="1"><Link to="/admin/myTable">表格</Link></Menu.Item>
+                            <Menu.Item key="2"><Link to="/admin/myForm">表单</Link></Menu.Item>
+                            <Menu.Item key="3"><Link to="/admin/myChart">图表</Link></Menu.Item>
+                            <Menu.Item key="4"><Link to="/admin/myCalendar">日历</Link></Menu.Item>
                         </SubMenu>
                         <SubMenu key="sub2" title={<span><Icon type="appstore"/><span>导航二</span></span>}>
-                            <Menu.Item key="5"><Link to="/myCard">导航</Link></Menu.Item>
-                            <Menu.Item key="6"><Link to="/myAnimate">关注</Link></Menu.Item>
+                            <Menu.Item key="5"><Link to="/admin/myCard">导航</Link></Menu.Item>
+                            <Menu.Item key="6"><Link to="/admin/myAnimate">关注</Link></Menu.Item>
                         </SubMenu>
                     </Menu>
                 </div>
                 <div id="rightWrap">
                     <Menu mode="horizontal">
                         <SubMenu title={<span><Icon type="user"/>{ this.state.username }</span>}>
-                            <Menu.Item key="setting:1"><Link to="/login">退出</Link></Menu.Item>
+                            <Menu.Item key="setting:1"><a href="/login.html">退出</a></Menu.Item>
                         </SubMenu>
                     </Menu>
                     <div className="right-box">
@@ -112,17 +112,17 @@ export default (
     // 		<Route path="myCard" component={myCard}/>
     // 	</Route>
     // </Router>
-    <Route path="/">
-        <Route path="admin" component={Sider}>
-            <IndexRoute component={myCard}/>
-            <Route path="myTable" component={myTable}/>
-            <Route path="myForm" component={myForm}/>
-            <Route path="myChart" component={myChart}/>
-            <Route path="myCalendar" component={myCalendar}/>
-            <Route path="myAnimate" component={myAnimate}/>
-            <Route path="myCard" component={myCard}/>
-        </Route>
-        <Route path="login" component={Login}/>
+    /*<Route path="/">*/
+    <Route path="/admin" component={Sider}>
+        <IndexRoute component={myCard}/>
+        <Route path="myTable" component={myTable}/>
+        <Route path="myForm" component={myForm}/>
+        <Route path="myChart" component={myChart}/>
+        <Route path="myCalendar" component={myCalendar}/>
+        <Route path="myAnimate" component={myAnimate}/>
+        <Route path="myCard" component={myCard}/>
     </Route>
+    /*<Route path="login" component={Login}/>*/
+    /*</Route>*/
 
 );
