@@ -23,7 +23,7 @@ new WebpackDevServer(webpack(config), {
     },
     proxy: {
         '/api/*': {
-            target: 'http://114.55.144.169/',
+            target: 'http://127.0.0.1:8000/api/x-admin/',
             secure: false
         }
     }

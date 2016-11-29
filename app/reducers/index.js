@@ -2,6 +2,7 @@ import { routerReducer as routing } from 'react-router-redux';
 import { combineReducers } from 'redux';
 import * as types from '../actions/types';
 
+//like this
 const filter = (state = '', action) => {
     switch (action.type) {
         case types.FILTER:
@@ -11,9 +12,10 @@ const filter = (state = '', action) => {
     }
 };
 
+import auth from '../reducers/auth'
 
 const rootReducer = combineReducers({
-    filter,
+    auth,
     routing
 });
 

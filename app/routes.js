@@ -16,7 +16,7 @@ import 'animate.css/animate.min.css'
 import 'font-awesome/css/font-awesome.min.css'
 
 // 引入主体样式文件
-import './main.css'
+import './assets/css/main.css'
 
 // 引入单个页面（包括嵌套的子页面）
 import myTable from './components/table.js'
@@ -25,104 +25,23 @@ import myChart from './components/chart.js'
 import myAnimate from './components/animate.js'
 import myCalendar from './components/calendar.js'
 import myCard from './components/fetch.js'
-import Login from './components/login/login.js'
+import Login from './components/login'
 import logo from './assets/images/logo.png'
 
 const ACTIVE = {color: 'red'}
 
-// 配置导航
-class Sider extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            current: '',
-            username: ''
-        }
-    }
-
-    handleClick = (e) => {
-        this.setState({
-            current: e.key
-        })
-    }
-
-    componentDidMount() {
-        this.getUser()
-    }
-
-    getUser = () => {
-        this.setState({
-            username: 'luozh'
-        })
-    }
-
-    render() {
-        return (
-            <div>
-                <div id="leftMenu">
-                    <img src={logo} width="50" id="logo"/>
-                    <Menu theme="dark"
-                          onClick={this.handleClick}
-                          style={{width: 185}}
-                          defaultOpenKeys={['sub1', 'sub2']}
-                          defaultSelectedKeys={[this.state.current]}
-                          mode="inline"
-                    >
-                        <SubMenu key="sub1" title={<span><Icon type="mail"/><span>导航一</span></span>}>
-                            <Menu.Item key="1"><Link to="/admin/myTable">表格</Link></Menu.Item>
-                            <Menu.Item key="2"><Link to="/admin/myForm">表单</Link></Menu.Item>
-                            <Menu.Item key="3"><Link to="/admin/myChart">图表</Link></Menu.Item>
-                            <Menu.Item key="4"><Link to="/admin/myCalendar">日历</Link></Menu.Item>
-                        </SubMenu>
-                        <SubMenu key="sub2" title={<span><Icon type="appstore"/><span>导航二</span></span>}>
-                            <Menu.Item key="5"><Link to="/admin/myCard">导航</Link></Menu.Item>
-                            <Menu.Item key="6"><Link to="/admin/myAnimate">关注</Link></Menu.Item>
-                        </SubMenu>
-                    </Menu>
-                </div>
-                <div id="rightWrap">
-                    <Menu mode="horizontal">
-                        <SubMenu title={<span><Icon type="user"/>{ this.state.username }</span>}>
-                            <Menu.Item key="setting:1"><a href="/login.html">退出</a></Menu.Item>
-                        </SubMenu>
-                    </Menu>
-                    <div className="right-box">
-                        { this.props.children }
-                    </div>
-                </div>
-            </div>
-        )
-    }
-}
-
 
 export default (
-    // <Route path="/" component={App}>
-    // 	<IndexRoute component={FilterableTable} />
-    // 	<Route path="/about" component={About} />
-    // </Route>
-    // <Router history={hashHistory}>
-    // 	<Route path="/" component={Sider}>
-    // 		<IndexRoute component={myCard}/>
-    // 		<Route path="myTable" component={myTable}/>
-    // 		<Route path="myForm" component={myForm}/>
-    // 		<Route path="myChart" component={myChart}/>
-    // 		<Route path="myCalendar" component={myCalendar}/>
-    // 		<Route path="myAnimate" component={myAnimate}/>
-    // 		<Route path="myCard" component={myCard}/>
-    // 	</Route>
-    // </Router>
-    /*<Route path="/">*/
-    <Route path="/admin" component={Sider}>
-        <IndexRoute component={myCard}/>
-        <Route path="myTable" component={myTable}/>
-        <Route path="myForm" component={myForm}/>
-        <Route path="myChart" component={myChart}/>
-        <Route path="myCalendar" component={myCalendar}/>
-        <Route path="myAnimate" component={myAnimate}/>
-        <Route path="myCard" component={myCard}/>
+    <Route path="/">
+        <Route path="/admin" component={App}>
+            <IndexRoute component={myCard}/>
+            <Route path="myTable" component={myTable}/>
+            <Route path="myForm" component={myForm}/>
+            <Route path="myChart" component={myChart}/>
+            <Route path="myCalendar" component={myCalendar}/>
+            <Route path="myAnimate" component={myAnimate}/>
+            <Route path="myCard" component={myCard}/>
+        </Route>
+        <Route path="login" component={Login}/>
     </Route>
-    /*<Route path="login" component={Login}/>*/
-    /*</Route>*/
-
 );

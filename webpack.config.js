@@ -9,7 +9,7 @@ env = process.env.NODE_ENV.trim();
 var isProduction = process.env.NODE_ENV === 'production';
 module.exports = {
     //enable dev source map
-    devtool: 'eval-source-map',
+    devtool: 'inline-source-map',
     entry: {
         index: [
             'webpack-dev-server/client?http://localhost:3000',
@@ -21,7 +21,7 @@ module.exports = {
             'webpack-dev-server/client?http://localhost:3000',
             'webpack/hot/only-dev-server',
             'react-hot-loader/patch',
-            path.join(SRC, 'views/login.js')
+            path.join(SRC, 'views/index.js')
         ]
     },
     output: {
@@ -78,6 +78,15 @@ module.exports = {
                 test: /\.scss$/,
                 loader: "style!css!sass?sourceMap"
             },
+            {
+                test: /\.less?$/,
+                loaders : [
+                    'style-loader',
+                    'css-loader',
+                    'less-loader?{"sourceMap":true}'
+                ],
+                include: __dirname
+            },
             // {
             //     test: /\.(woff|svg|eot|ttf)\??.*$/,
             //     loader: 'url-loader?limit=50000&name=[path][name].[ext]',
@@ -122,6 +131,7 @@ module.exports = {
             React: "react",
             ReactDom: "react-dom"
         }),
+        new webpack.IgnorePlugin((/\.\/index.js$/))
         // new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js', Infinity) // 这是第三方库打包生成的文件
     ],
     //配置eslint
