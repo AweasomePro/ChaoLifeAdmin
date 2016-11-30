@@ -35,6 +35,12 @@ fetch('//offline-news-api.herokuapp.com/stories')
     });
 ```
 
+## 使用immutable state
+ 共享的可变性是万恶之源. -Pete Hunt.React.js Conf 2015
+ 
+ 不可变对象 是指在创建之后不可再被改变的对象
+ 不可变对象 让我们免于痛苦，并且通过引用级的比对检查 来提高渲染性能 （不用进行对象的深度比较）
+
 
 ## 异步Action 与 Middleware
 在Store 中引入 Middleware, 使得 dispatch 方法 支持 函数或其他对象。
