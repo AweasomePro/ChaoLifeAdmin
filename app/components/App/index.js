@@ -28,8 +28,6 @@ class App extends React.Component {
             <div className="ant-layout-aside">
                 <Sidebar />
                 <div className="ant-layout-main">
-                    <Header user={user} />
-                    <NavPath />
                     <div className="ant-layout-container">
                         <div className="ant-layout-content">
                             {this.props.children}
