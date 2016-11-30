@@ -7,8 +7,8 @@ import React, {PropTypes} from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {login} from '../../actions/user'
-
-import './login.css'
+import {Row, Col} from 'antd';
+import './login.less'
 
 const propTypes = {
     user: PropTypes.string,
@@ -53,7 +53,7 @@ class Login extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
         notification.success({
-            message:this
+            message: this
         })
         const data = this.props.form.getFieldsValue();
         this.props.login(data.username, data.password)
@@ -62,35 +62,41 @@ class Login extends React.Component {
     render() {
         const {getFieldDecorator} = this.props.form
         return (
-            <Form onSubmit={this.handleSubmit.bind(this)} className="login-form">
-                <FormItem>
-                    {getFieldDecorator('username', {
-                        rules: [{required: true, message: 'Please input your username!'}],
-                    })(
-                        <Input addonBefore={<Icon type="user"/>} placeholder="Username"/>
-                    )}
-                </FormItem>
-                <FormItem>
-                    {getFieldDecorator('password', {
-                        rules: [{required: true, message: 'Please input your Password!'}],
-                    })(
-                        <Input addonBefore={<Icon type="lock"/>} type="password" placeholder="Password"/>
-                    )}
-                </FormItem>
-                <FormItem>
-                    {getFieldDecorator('remember', {
-                        valuePropName: 'checked',
-                        initialValue: true,
-                    })(
-                        <Checkbox>Remember me</Checkbox>
-                    )}
-                    <a className="login-form-forgot">Forgot password</a>
-                    <Button type="primary" htmlType="submit" className="login-form-button">
-                        Log in
-                    </Button>
-                    Or <a>register now!</a>
-                </FormItem>
-            </Form>
+            <Row className="login-row" type="flex" justify="space-around" align="middle">
+                <Col span="8">
+                    <Form onSubmit={this.handleSubmit.bind(this)} className="login-form">
+                        <FormItem>
+                            {getFieldDecorator('username', {
+                                rules: [{required: true, message: 'Please input your username!'}],
+                            })(
+                                <Input addonBefore={<Icon type="user"/>} placeholder="Username"
+                                       className="login-form-input"/>
+                            )}
+                        </FormItem>
+                        <FormItem>
+                            {getFieldDecorator('password', {
+                                rules: [{required: true, message: 'Please input your Password!'}],
+                            })(
+                                <Input addonBefore={<Icon type="lock"/>} type="password" placeholder="Password"
+                                       className="login-form-input"/>
+                            )}
+                        </FormItem>
+                        <FormItem>
+                            {getFieldDecorator('remember', {
+                                valuePropName: 'checked',
+                                initialValue: true,
+                            })(
+                                <Checkbox>Remember me</Checkbox>
+                            )}
+                            <a className="login-form-forgot">Forgot password</a>
+                            <Button type="primary" htmlType="submit" className="login-form-block-btn">
+                                Log in
+                            </Button>
+                            Or <a>register now!</a>
+                        </FormItem>
+                    </Form>
+                </Col>
+            </Row>
         )
     }
 }
