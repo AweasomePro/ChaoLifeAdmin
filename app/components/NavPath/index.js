@@ -19,12 +19,7 @@ class NavPath extends React.Component {
   }
 
   render () {
-    // const { navpath } = this.props
-    // const bread = navpath.map((item)=>{
-    //   return (
-    //     <Breadcrumb.Item key={'bc-'+item.key}>{item.name}</Breadcrumb.Item>
-    //   )
-    // })
+
     return (
       <div className="ant-layout-breadcrumb">
         <Breadcrumb>
