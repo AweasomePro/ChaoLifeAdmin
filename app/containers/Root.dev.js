@@ -8,11 +8,12 @@ export default class Root extends Component {
     constructor(props) {
         super(props);
     }
+
     render() {
         const {store, history} = this.props;
         return (
             <Provider store={store}>
-                <div>
+                <div style={{height: '100%'}}>
                     <Router history={history} routes={routes}/>
                     <DevTools />
                 </div>

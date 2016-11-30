@@ -32,7 +32,7 @@ const ACTIVE = {color: 'red'}
 
 
 export default (
-    <Route path="/">
+    <Route>
         <Route path="/admin" component={App}>
             <IndexRoute component={myCard}/>
             <Route path="myTable" component={myTable}/>
