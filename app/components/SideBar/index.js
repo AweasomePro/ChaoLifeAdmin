@@ -19,7 +19,8 @@ import 'font-awesome/css/font-awesome.min.css'
 // 引入单个页面（包括嵌套的子页面）
 
 import logo from '../../assets/images/logo.png'
-
+// 引入主体样式文件
+import './main.css'
 
 // 配置导航
 export  default class Sider extends React.Component {
