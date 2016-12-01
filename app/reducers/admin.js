@@ -14,22 +14,24 @@ const initialState = {
     loginErrors: null
 };
 
+
 export default function auth(state = initialState, action = {}) {
+    console.log('action is  '+action)
     switch (action.type) {
         case LOGIN_PENDING:
             return Object.assign({}, initialState, {loggingIn: true});
         case LOGIN_SUCCESS:
-            return Object.assign({}, state, {user: action.payload.user, loggingIn: false, loginErrors: null});
+            return Object.assign({}, state, {user: action.admin.user, loggingIn: false, loginErrors: null});
         case LOGIN_ERROR:
             return {
                 ...state,
                 loggingIn: false,
                 user: null,
-                loginErrors: action.payload.message
+                loginErrors: '登入失败'
             };
         case LOGOUT_SUCCESS:
             return {
-                ...state,
+                loggingIn:true,
                 loggingOut: false,
                 user: null,
                 loginErrors: null

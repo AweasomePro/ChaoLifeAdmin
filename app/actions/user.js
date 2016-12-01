@@ -1,7 +1,8 @@
-import api from '../api'
-
+require('es6-promise').polyfill();
+require('isomorphic-fetch');
+import api from '../apiSingleton';
 import {getCookie} from '../utils';
-
+import {formatAdminLogin} from '../utils/apiResponseFormatter';
 export const FETCH_PROFILE_PENDING = 'FETCH_PROFILE_PENDING';
 export const FETCH_PROFILE_SUCCESS = 'FETCH_PROFILE_SUCCESS';
 
@@ -26,17 +27,29 @@ export function fetchProfile() {
     }
 }
 
+function stateIsSuccess(data) {
+    return data.state == 'success'
+}
+function stateIsFailed(data) {
+    return data.state == 'failed'
+}
 export function login(username, password) {
-    return {
-        type: 'LOGIN',
-        payload: {
-            promise: api.post('admin/login/', {
-                data: {
-                    username: username,
-                    password: password
-                }
-            })
-        }
+    return (dispatch) => {
+        return api.admin.login(username,password,).then((response) => {
+            console.log('get Response'+response)
+            const account = formatAdminLogin(response);
+            if (stateIsSuccess(account)){
+                dispatch({
+                    type:LOGIN_SUCCESS,
+                    admin:account
+                })
+            } else {
+                dispatch({
+                    type:LOGIN_ERROR,
+                    admin:null
+                })
+            }
+        })
     }
 }
 

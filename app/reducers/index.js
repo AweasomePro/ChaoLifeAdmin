@@ -1,21 +1,10 @@
 import { routerReducer as routing } from 'react-router-redux';
 import { combineReducers } from 'redux';
-import * as types from '../actions/types';
 
-//like this
-const filter = (state = '', action) => {
-    switch (action.type) {
-        case types.FILTER:
-            return action.filter;
-        default:
-            return state;
-    }
-};
-
-import auth from '../reducers/auth'
+import admin from '../reducers/admin'
 
 const rootReducer = combineReducers({
-    auth,
+    admin,
     routing
 });
 

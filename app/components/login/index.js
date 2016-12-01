@@ -31,20 +31,20 @@ class Login extends React.Component {
         const error = nextProps.loginErrors;
         const isLoggingIn = nextProps.loggingIn;
         const user = nextProps.user;
-
-        if (error != this.props.loginErrors && error) {
-            notification.error({
-                message: 'Login Fail',
-                description: error
-            })
-        }
-
-        if (!isLoggingIn && !error && user) {
-            notification.error({
-                message: 'Login Fail',
-                description: error
-            })
-        }
+        console.log('state is '+nextProps);
+        // if (error != this.props.loginErrors && error) {
+        //     notification.error({
+        //         message: 'Login Fail',
+        //         description: error
+        //     })
+        // }
+        //
+        // if (!isLoggingIn && !error && user) {
+        //     notification.error({
+        //         message: 'Login Fail',
+        //         description: error
+        //     })
+        // }
         if (user) {
             this.context.router.replace('/admin');
         }
@@ -52,10 +52,8 @@ class Login extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        notification.success({
-            message: this
-        })
         const data = this.props.form.getFieldsValue();
+        console.log('login data is '+data.username+':'+data.password)
         this.props.login(data.username, data.password)
     };
 
@@ -107,8 +105,9 @@ Login.propTypes = propTypes;
 Login = Form.create()(Login);
 
 function mapStateToProps(state) {
-    console.log('state is ' + state.auth);
-    const user = state.auth;
+
+    console.log('state is ' + state);
+    const user = state.admin;
     if (user && user.user) {
         return {user: user.user, loggingIn: user.loggingIn, loginErrors: ''};
     }

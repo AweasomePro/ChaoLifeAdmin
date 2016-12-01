@@ -1,6 +1,5 @@
 import React from 'react';
 import App from './components/App';
-import FilterableTable from './containers/FilterableTable';
 import About from './components/About';
 
 // 引入React-Router模块
