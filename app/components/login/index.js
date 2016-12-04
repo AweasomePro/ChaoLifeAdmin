@@ -1,7 +1,7 @@
 /**
  * Created by nimdanoob on 2016/11/25.
  */
-import {Form, Icon, Input, Button, Checkbox, notification} from 'antd';
+import {Form, Icon, Input, Button, Checkbox, message} from 'antd';
 const FormItem = Form.Item
 import React, {PropTypes} from 'react'
 import {bindActionCreators} from 'redux'
@@ -27,33 +27,27 @@ class Login extends React.Component {
         super(props)
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        console.warn('invoke shouldComponentUpdate');
+        return true;
+    }
+
     componentWillReceiveProps(nextProps) {
         const error = nextProps.loginErrors;
         const isLoggingIn = nextProps.loggingIn;
         const user = nextProps.user;
-        console.log('state is '+nextProps);
-        // if (error != this.props.loginErrors && error) {
-        //     notification.error({
-        //         message: 'Login Fail',
-        //         description: error
-        //     })
-        // }
-        //
-        // if (!isLoggingIn && !error && user) {
-        //     notification.error({
-        //         message: 'Login Fail',
-        //         description: error
-        //     })
-        // }
+        console.log('state is ' + JSON.stringify(nextProps));
         if (user) {
             this.context.router.replace('/admin');
+        } else if (this.props.loginErrors !== error && error) {
+            message.error(error);
+
         }
     }
 
     handleSubmit(e) {
         e.preventDefault();
         const data = this.props.form.getFieldsValue();
-        console.log('login data is '+data.username+':'+data.password)
         this.props.login(data.username, data.password)
     };
 
@@ -105,13 +99,7 @@ Login.propTypes = propTypes;
 Login = Form.create()(Login);
 
 function mapStateToProps(state) {
-
-    console.log('state is ' + state);
-    const user = state.admin;
-    if (user && user.user) {
-        return {user: user.user, loggingIn: user.loggingIn, loginErrors: ''};
-    }
-    return {user: null, loggingIn: user.loggingIn, loginErrors: user.loginErrors};
+    return state.admin
 }
 
 function mapDispatchToProps(dispatch) {

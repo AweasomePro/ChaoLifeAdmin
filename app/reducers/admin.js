@@ -15,29 +15,33 @@ const initialState = {
 };
 
 
+function createError(message, timestamp) {
+    return {
+        errorMessage: message,
+        timestamp: timestamp
+    }
+}
 export default function auth(state = initialState, action = {}) {
-    console.log('action is  '+action)
+    var nextState = Object.assign({}, state);
     switch (action.type) {
         case LOGIN_PENDING:
             return Object.assign({}, initialState, {loggingIn: true});
         case LOGIN_SUCCESS:
             return Object.assign({}, state, {user: action.admin.user, loggingIn: false, loginErrors: null});
         case LOGIN_ERROR:
-            return {
-                ...state,
-                loggingIn: false,
+            return Object.assign({}, state, {
                 user: null,
-                loginErrors: '登入失败'
-            };
+                loggingIn: false,
+                // loginErrors: createError(action.error.message, action.error.timestamp),
+                loginErrors: [action.error]
+            });
         case LOGOUT_SUCCESS:
             return {
-                loggingIn:true,
+                loggingIn: true,
                 loggingOut: false,
                 user: null,
                 loginErrors: null
             };
-        case FETCH_PROFILE_SUCCESS:
-            return Object.assign({}, state, {user: action.payload.user, loggingIn: false, loginErrors: null});
         default:
             return state;
     }

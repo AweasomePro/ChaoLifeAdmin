@@ -2,6 +2,7 @@ require('es6-promise').polyfill();
 require('isomorphic-fetch');
 import api from '../apiSingleton';
 import {getCookie} from '../utils';
+import { createActions,createAction } from 'redux-actions';
 import {formatAdminLogin} from '../utils/apiResponseFormatter';
 export const FETCH_PROFILE_PENDING = 'FETCH_PROFILE_PENDING';
 export const FETCH_PROFILE_SUCCESS = 'FETCH_PROFILE_SUCCESS';
@@ -27,6 +28,8 @@ export function fetchProfile() {
     }
 }
 
+
+
 function stateIsSuccess(data) {
     return data.state == 'success'
 }
@@ -36,19 +39,17 @@ function stateIsFailed(data) {
 export function login(username, password) {
     return (dispatch) => {
         return api.admin.login(username,password,).then((response) => {
-            console.log('get Response'+response)
             const account = formatAdminLogin(response);
             if (stateIsSuccess(account)){
                 dispatch({
                     type:LOGIN_SUCCESS,
                     admin:account
                 })
-            } else {
-                dispatch({
-                    type:LOGIN_ERROR,
-                    admin:null
-                })
             }
+        },(error)=>{
+            console.warn('should dispatch error');
+            console.warn(createAction(LOGIN_ERROR)(LOGIN_ERROR));
+            dispatch(createAction(LOGIN_ERROR)(LOGIN_ERROR))
         })
     }
 }

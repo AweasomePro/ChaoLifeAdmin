@@ -1,7 +1,7 @@
 import fetch       from 'isomorphic-fetch';
 import queryString from 'query-string';
 import Promise     from 'bluebird';
-
+import {createError} from '../utils/errorModelCreate'
 export default class ApiClient {
     constructor({ prefix = '' } = {}) {
         this.prefix = prefix;
@@ -74,10 +74,10 @@ export default class ApiClient {
             console.log('and stringfy to '+init.body)
         }
         return fetch(`${this.prefix}/${urlWithQuery}`, init).then(res => {
-            if (res.status >= 400) {
+            if (res.status >= 500) {
+                console.log('res test is '+ res.text);
                 throw new Error('Bad response from server');
             }
-            console.log('res test is '+ res.text);
 
             return res.json();
         }).then(data => {
