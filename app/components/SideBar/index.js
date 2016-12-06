@@ -72,16 +72,7 @@ export  default class Sider extends React.Component {
                         </SubMenu>
                     </Menu>
                 </div>
-                <div id="rightWrap">
-                    <Menu mode="horizontal">
-                        <SubMenu title={<span><Icon type="user"/>{ this.state.username }</span>}>
-                            <Menu.Item key="setting:1"><a href="/login">退出</a></Menu.Item>
-                        </SubMenu>
-                    </Menu>
-                    <div className="right-box">
-                        { this.props.children }
-                    </div>
-                </div>
+
             </div>
         )
     }
