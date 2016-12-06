@@ -3,9 +3,8 @@
  */
 
 
-export function createError(message, timestamp) {
+export function createError(message) {
     return {
         message: message,
-        timestamp: timestamp
     }
 }

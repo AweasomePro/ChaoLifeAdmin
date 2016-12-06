@@ -11,7 +11,7 @@ export default class Footer extends React.Component {
 
     return (
       <div className="ant-layout-footer">
-      xxxx 版权所有 © 2015 xxxxxx.com
+      超梦时代 版权所有 © 2016 superamtimes.com
       </div>
     )
   }

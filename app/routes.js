@@ -29,10 +29,10 @@ import logo from './assets/images/logo.png'
 
 const ACTIVE = {color: 'red'}
 
-
+import Siderbar from './components/SideBar';
 export default (
     <Route>
-        <Route path="/admin" component={App}>
+        <Route path="/admin" component={Siderbar}>
             <IndexRoute component={myCard}/>
             <Route path="myTable" component={myTable}/>
             <Route path="myForm" component={myForm}/>

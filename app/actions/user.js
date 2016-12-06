@@ -36,6 +36,8 @@ function stateIsSuccess(data) {
 function stateIsFailed(data) {
     return data.state == 'failed'
 }
+const loginErrorAction = createAction(LOGIN_ERROR);
+
 export function login(username, password) {
     return (dispatch) => {
         return api.admin.login(username,password,).then((response) => {
@@ -47,9 +49,7 @@ export function login(username, password) {
                 })
             }
         },(error)=>{
-            console.warn('should dispatch error');
-            console.warn(createAction(LOGIN_ERROR)(LOGIN_ERROR));
-            dispatch(createAction(LOGIN_ERROR)(LOGIN_ERROR))
+            dispatch(loginErrorAction({error:'登录失败'}))
         })
     }
 }

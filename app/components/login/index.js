@@ -36,12 +36,10 @@ class Login extends React.Component {
         const error = nextProps.loginErrors;
         const isLoggingIn = nextProps.loggingIn;
         const user = nextProps.user;
-        console.log('state is ' + JSON.stringify(nextProps));
         if (user) {
             this.context.router.replace('/admin');
         } else if (this.props.loginErrors !== error && error) {
-            message.error(error);
-
+            message.error(error.message);
         }
     }
 

@@ -15,10 +15,9 @@ const initialState = {
 };
 
 
-function createError(message, timestamp) {
+function createError(message) {
     return {
         errorMessage: message,
-        timestamp: timestamp
     }
 }
 export default function auth(state = initialState, action = {}) {
@@ -32,12 +31,11 @@ export default function auth(state = initialState, action = {}) {
             return Object.assign({}, state, {
                 user: null,
                 loggingIn: false,
-                // loginErrors: createError(action.error.message, action.error.timestamp),
-                loginErrors: [action.error]
+                loginErrors: {message: action.payload.error}
             });
         case LOGOUT_SUCCESS:
             return {
-                loggingIn: true,
+                loggingIn: false,
                 loggingOut: false,
                 user: null,
                 loginErrors: null
